@@ -1,0 +1,64 @@
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import Analyze from "./pages/Analyze";
+import Visualizer from "./pages/Visualizer";
+import History from "./pages/History";
+import Roadmap from "./pages/Roadmap";
+
+const PrivateRoute = ({ children }) => {
+  const { user } = useAuth();
+  return user ? children : <Navigate to="/login" />;
+};
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route
+        path="/dashboard"
+        element={
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/analyze"
+        element={
+          <PrivateRoute>
+            <Analyze />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/visualizer"
+        element={
+          <PrivateRoute>
+            <Visualizer />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/history"
+        element={
+          <PrivateRoute>
+            <History />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/roadmap"
+        element={
+          <PrivateRoute>
+            <Roadmap />
+          </PrivateRoute>
+        }
+      />
+      <Route path="*" element={<Navigate to="/login" />} />
+    </Routes>
+  );
+}
