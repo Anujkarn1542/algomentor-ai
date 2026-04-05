@@ -11,7 +11,16 @@ const authRoutes = require('./routes/authRoutes');
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const analysisRoutes = require("./routes/analysisRoutes");
 
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://algomentor-ai.vercel.app",
+      /\.vercel\.app$/,
+    ],
+    credentials: true,
+  }),
+);
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use("/api/dashboard", dashboardRoutes);
