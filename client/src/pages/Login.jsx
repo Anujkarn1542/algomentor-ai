@@ -86,6 +86,31 @@ export default function Login() {
             </button>
           </form>
 
+          {/* Divider */}
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="bg-white dark:bg-gray-900 px-4 text-gray-600 dark:text-gray-400">
+                or continue with
+              </span>
+            </div>
+          </div>
+
+          {/* Google Login */}
+          <a
+            href="http://localhost:5000/api/auth/google"
+            className="w-full flex items-center justify-center gap-3 bg-white hover:bg-gray-100 text-gray-900 font-semibold py-3 rounded-lg border border-gray-300 transition"
+          >
+            <img
+              src="https://www.google.com/favicon.ico"
+              className="w-5 h-5"
+              alt="Google"
+            />
+            Continue with Google
+          </a>
+
           <p className="text-center text-xs text-[#555] mt-6">
             No account?{" "}
             <Link

@@ -8,6 +8,7 @@ import Analyze from "./pages/Analyze";
 import Visualizer from "./pages/Visualizer";
 import History from "./pages/History";
 import Roadmap from "./pages/Roadmap";
+import AuthCallback from "./pages/AuthCallback";
 
 const PrivateRoute = ({ children }) => {
   const { user } = useAuth();
@@ -60,6 +61,7 @@ export default function App() {
           </PrivateRoute>
         }
       />
+      <Route path="/auth/callback" element={<AuthCallback />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
