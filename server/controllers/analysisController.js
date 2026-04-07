@@ -1,5 +1,6 @@
 const Analysis = require("../models/Analysis");
-const { analyzeCode } = require("../utils/gemini");
+const { analyzeCode,
+  generateRoadmapAI } = require("../utils/gemini");
 
 exports.analyze = async (req, res) => {
   const { problemTitle, code, language, topic, difficulty } = req.body;
@@ -38,6 +39,8 @@ exports.analyze = async (req, res) => {
   }
 };
 
+
+
 exports.getHistory = async (req, res) => {
   const analyses = await Analysis.find({ user: req.user._id })
     .sort({ createdAt: -1 })
@@ -45,3 +48,21 @@ exports.getHistory = async (req, res) => {
   res.json(analyses);
 };
 
+exports.generateRoadmap = async (req, res) => {
+  const { weakTopic, topicStats, duration } = req.body;
+
+  try {
+    const roadmap = await generateRoadmapAI({
+      weakTopic,
+      topicStats,
+      duration,
+    });
+
+    res.json(roadmap);
+  } catch (err) {
+    console.error("ROADMAP ERROR:", err);
+    res.status(500).json({
+      message: err.message || "Failed to generate roadmap",
+    });
+  }
+};

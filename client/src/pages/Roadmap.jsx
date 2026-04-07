@@ -38,7 +38,7 @@ export default function Roadmap() {
         weakTopic: stats.weakTopic,
         days,
       });
-      setPlan(data.plan);
+      setPlan(data);
     } catch (err) {
       console.error(err);
     } finally {
