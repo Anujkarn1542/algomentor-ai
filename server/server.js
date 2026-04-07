@@ -15,7 +15,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://algomentor-ai-pearl.vercel.app/",
+      "https://algomentor-ai-pearl.vercel.app",
       /\.vercel\.app$/,
     ],
     credentials: true,
