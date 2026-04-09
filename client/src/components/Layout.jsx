@@ -137,8 +137,8 @@ export default function Layout({ children }) {
         {/* Logo + Theme Toggle */}
         <div className="flex items-center justify-between px-5 py-5 border-b border-[#1e1e35]">
           <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded-lg bg-linear-to-br from-[#7c3aed] to-[#a78bfa] flex items-center justify-center text-sm shrink-0">
-              ⚡
+            <div className="w-7 h-7 rounded-lg flex items-center justify-center text-sm shrink-0">
+              <img src="/favicon.svg" alt="Logo" className="w-10 h-10" />
             </div>
 
             <span className="text-sm font-bold text-[#111827] dark:text-white">

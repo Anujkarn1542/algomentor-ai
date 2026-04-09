@@ -59,11 +59,8 @@ export default function Landing() {
       {/* ── Navbar ── */}
       <nav className="flex items-center justify-between px-6 md:px-16 py-5 border-b border-[#1e1e35]">
         <div className="flex items-center gap-3">
-          <div
-            className="w-8 h-8 rounded-xl flex items-center justify-center text-base"
-            style={{ background: "linear-gradient(135deg,#7c3aed,#a78bfa)" }}
-          >
-            ⚡
+          <div className="w-8 h-8 rounded-xl flex items-center justify-center text-base">
+            <img src="/favicon.svg" alt="Logo" className="w-10 h-10" />
           </div>
           <span className="text-base font-bold text-white">
             Algo<span className="text-[#a78bfa]">Mentor</span>
@@ -326,9 +323,8 @@ export default function Landing() {
           <div className="flex items-center gap-2">
             <div
               className="w-6 h-6 rounded-lg flex items-center justify-center text-xs"
-              style={{ background: "linear-gradient(135deg,#7c3aed,#a78bfa)" }}
             >
-              ⚡
+              <img src="/favicon.svg" alt="Logo" className="w-10 h-10" />
             </div>
             <span className="text-sm font-bold text-white">
               Algo<span className="text-[#a78bfa]">Mentor</span>

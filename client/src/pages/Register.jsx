@@ -46,8 +46,8 @@ export default function Register() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="flex items-center justify-center gap-3 mb-8">
-          <div className="w-10 h-10 rounded-xl bg-linear-to-br from-[#7c3aed] to-[#a78bfa] flex items-center justify-center text-xl">
-            ⚡
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl">
+            <img src="/favicon.svg" alt="Logo" className="w-10 h-10" />
           </div>
           <span className="text-xl font-bold text-white">
             Algo<span className="text-[#a78bfa]">Mentor</span>
