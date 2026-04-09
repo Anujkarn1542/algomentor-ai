@@ -1,5 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import ThemeToggle from "./ThemeToggle";
 
 const NAV = [
   {
@@ -95,17 +96,22 @@ export default function Layout({ children }) {
   const navigate = useNavigate();
 
   return (
-    <div className="flex h-screen bg-[#080812] overflow-hidden font-['Inter']">
+    <div className="flex h-screen bg-gray-50 dark:bg-[#080812] overflow-hidden font-['Inter']">
       {/* Sidebar */}
-      <aside className="w-56 bg-[#0a0a18] border-r border-[#1e1e35] flex flex-col shrink-0">
-        {/* Logo */}
-        <div className="flex items-center gap-3 px-5 py-5 border-b border-[#1e1e35]">
-          <div className="w-7 h-7 rounded-lg bg-linear-to-br from-[#7c3aed] to-[#a78bfa] flex items-center justify-center text-sm shrink-0">
-            ⚡
+      <aside className="w-56 bg-white dark:bg-[#0a0a18] border-r border-[#1e1e35] flex flex-col shrink-0">
+        {/* Logo + Theme Toggle */}
+        <div className="flex items-center justify-between px-5 py-5 border-b border-[#1e1e35]">
+          <div className="flex items-center gap-3">
+            <div className="w-7 h-7 rounded-lg bg-linear-to-br from-[#7c3aed] to-[#a78bfa] flex items-center justify-center text-sm shrink-0">
+              ⚡
+            </div>
+
+            <span className="text-sm font-bold text-[#111827] dark:text-white">
+              Algo<span className="text-[#a78bfa]">Mentor</span>
+            </span>
           </div>
-          <span className="text-sm font-bold text-white">
-            Algo<span className="text-[#a78bfa]">Mentor</span>
-          </span>
+
+          <ThemeToggle />
         </div>
 
         {/* Nav */}
@@ -144,7 +150,7 @@ export default function Layout({ children }) {
               }}
               className="text-[#444] hover:text-red-400 transition-colors bg-transparent border-none cursor-pointer text-base"
             >
-              ↩
+              Logout ↩
             </button>
           </div>
         </div>
