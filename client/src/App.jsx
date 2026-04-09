@@ -9,6 +9,8 @@ import Visualizer from "./pages/Visualizer";
 import History from "./pages/History";
 import Roadmap from "./pages/Roadmap";
 import AuthCallback from "./pages/AuthCallback";
+import Leaderboard from "./pages/Leaderboard";
+import Interview from "./pages/Interview";
 
 const PrivateRoute = ({ children }) => {
   const { user } = useAuth();
@@ -58,6 +60,22 @@ export default function App() {
         element={
           <PrivateRoute>
             <Roadmap />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/leaderboard"
+        element={
+          <PrivateRoute>
+            <Leaderboard />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/interview"
+        element={
+          <PrivateRoute>
+            <Interview />
           </PrivateRoute>
         }
       />

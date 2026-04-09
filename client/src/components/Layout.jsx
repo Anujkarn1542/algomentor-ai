@@ -23,6 +23,25 @@ const NAV = [
     ),
   },
   {
+    path: "/leaderboard",
+    label: "Leaderboard",
+    icon: (
+      <svg
+        width="16"
+        height="16"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        viewBox="0 0 16 16"
+      >
+        <path d="M3 14h10" />
+        <path d="M5 14V8" />
+        <path d="M8 14V4" />
+        <path d="M11 14V6" />
+      </svg>
+    ),
+  },
+  {
     path: "/analyze",
     label: "Analyze Code",
     icon: (
@@ -53,6 +72,22 @@ const NAV = [
         viewBox="0 0 16 16"
       >
         <polygon points="4,2 12,8 4,14" />
+      </svg>
+    ),
+  },
+  {
+    path: "/interview",
+    label: "Interview",
+    icon: (
+      <svg
+        width="16"
+        height="16"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        viewBox="0 0 16 16"
+      >
+        <path d="M2 3h12v8H6l-4 3V3z" />
       </svg>
     ),
   },

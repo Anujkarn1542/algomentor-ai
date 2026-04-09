@@ -5,12 +5,16 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const session = require("express-session");
 const passport = require("./utils/passport");
+const leaderboardRoutes = require("./routes/leaderboardRoutes");
+const interviewRoutes = require("./routes/interviewRoutes");
+
 
 const app = express();
 
 const authRoutes = require('./routes/authRoutes');
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const analysisRoutes = require("./routes/analysisRoutes");
+
 
 app.use(
   cors({
@@ -41,6 +45,8 @@ app.get("/", (req, res) => res.json({ message: "AlgoMentor API running" }));
 app.use('/api/auth', authRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/analysis", analysisRoutes);
+app.use("/api/leaderboard", leaderboardRoutes);
+app.use("/api/interview", interviewRoutes);
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {

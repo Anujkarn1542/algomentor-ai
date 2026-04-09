@@ -1,6 +1,15 @@
 const Analysis = require("../models/Analysis");
-const { analyzeCode,
-  generateRoadmapAI } = require("../utils/gemini");
+const User = require("../models/User");
+const {
+  getXPByDifficulty,
+  calculateLevel,
+  updateStreak,
+} = require("../services/gamificationService");
+const {
+  analyzeCode,
+  generateRoadmapAI,
+} = require("../utils/gemini");
+
 
 exports.analyze = async (req, res) => {
   const { problemTitle, code, language, topic, difficulty } = req.body;
@@ -28,7 +37,29 @@ exports.analyze = async (req, res) => {
       score: aiResult.score,
     });
 
-    res.status(201).json({ analysis, aiResult });
+    // 🏆 Update user XP + level + streak
+    const user = await User.findById(req.user._id);
+
+    const earnedXP = getXPByDifficulty(difficulty || "Medium");
+
+    user.xp += earnedXP;
+
+    updateStreak(user);
+
+    user.level = calculateLevel(user.xp);
+
+    await user.save();
+
+    res.status(201).json({
+      analysis,
+      aiResult,
+      gamification: {
+        earnedXP,
+        totalXP: user.xp,
+        level: user.level,
+        streak: user.streak,
+      },
+    });
   } catch (err) {
     console.error("FULL ERROR:", err);
     console.error("MESSAGE:", err.message);
@@ -38,8 +69,6 @@ exports.analyze = async (req, res) => {
     });
   }
 };
-
-
 
 exports.getHistory = async (req, res) => {
   const analyses = await Analysis.find({ user: req.user._id })

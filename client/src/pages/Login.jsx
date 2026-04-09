@@ -16,7 +16,6 @@ export default function Login() {
     setError("");
     try {
       const { data } = await api.post("/auth/login", form);
-      console.log("LOGIN SUCCESS RESPONSE:", data);
       login(data);
       navigate("/dashboard");
     } catch (err) {
