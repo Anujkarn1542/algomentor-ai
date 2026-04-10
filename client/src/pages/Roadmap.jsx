@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import api from "../api/axios";
+import { motion } from "framer-motion";
+import { hoverCardMotion } from "../utils/motion";
 
 const TOPIC_COLOR = {
   Arrays: "#a78bfa",
@@ -67,7 +69,10 @@ export default function Roadmap() {
             {/* Left — topic stats + generate */}
             <div className="flex flex-col gap-4 w-full xl:w-72 shrink-0">
               {/* Topic breakdown */}
-              <div className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-5">
+              <motion.div
+                {...hoverCardMotion}
+                className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-5"
+              >
                 <p className="text-[10px] font-semibold text-[#444] uppercase tracking-widest mb-4">
                   Your topic stats
                 </p>
@@ -104,10 +109,13 @@ export default function Roadmap() {
                     })}
                   </div>
                 )}
-              </div>
+              </motion.div>
 
               {/* Generate controls */}
-              <div className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-5">
+              <motion.div
+                {...hoverCardMotion}
+                className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-5"
+              >
                 <p className="text-[10px] font-semibold text-[#444] uppercase tracking-widest mb-4">
                   Generate plan
                 </p>
@@ -160,13 +168,16 @@ export default function Roadmap() {
                     Analyze problems first to get a personalized plan
                   </p>
                 )}
-              </div>
+              </motion.div>
             </div>
 
             {/* Right — plan */}
             <div className="flex-1">
               {!plan && !generating && (
-                <div className="flex flex-col items-center justify-center h-64 gap-3 bg-[#0f0f20] border border-[#1e1e35] rounded-2xl">
+                <motion.div
+                  {...hoverCardMotion}
+                  className="flex flex-col items-center justify-center h-64 gap-3 bg-[#0f0f20] border border-[#1e1e35] rounded-2xl"
+                >
                   <div className="w-12 h-12 rounded-2xl bg-[#1a1a2e] flex items-center justify-center text-2xl">
                     🗺
                   </div>
@@ -177,22 +188,26 @@ export default function Roadmap() {
                     Click Generate to get a personalized study plan based on
                     your weak topics
                   </p>
-                </div>
+                </motion.div>
               )}
 
               {generating && (
-                <div className="flex flex-col items-center justify-center h-64 gap-4 bg-[#0f0f20] border border-[#1e1e35] rounded-2xl">
+                <motion.div
+                  {...hoverCardMotion}
+                  className="flex flex-col items-center justify-center h-64 gap-4 bg-[#0f0f20] border border-[#1e1e35] rounded-2xl"
+                >
                   <div className="w-8 h-8 border-2 border-[#7c3aed] border-t-transparent rounded-full animate-spin" />
                   <p className="text-sm text-[#555]">
                     AI is building your plan...
                   </p>
-                </div>
+                </motion.div>
               )}
 
               {plan && (
                 <div className="flex flex-col gap-4">
                   {plan.map((day, i) => (
-                    <div
+                    <motion.div
+                      {...hoverCardMotion}
                       key={i}
                       className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-5"
                     >
@@ -236,7 +251,7 @@ export default function Roadmap() {
                           </p>
                         </div>
                       )}
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               )}

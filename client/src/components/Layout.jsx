@@ -1,6 +1,8 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import ThemeToggle from "./ThemeToggle";
+import { motion } from "framer-motion";
+import { hoverCardMotion } from "../utils/motion";
 
 const NAV = [
   {

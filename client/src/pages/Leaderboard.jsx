@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import api from "../api/axios";
-
+import { motion } from "framer-motion";
+import { hoverCardMotion } from "../utils/motion";
 export default function Leaderboard() {
   const [users, setUsers] = useState([]);
 
@@ -18,7 +19,8 @@ export default function Leaderboard() {
 
         <div className="space-y-4">
           {users.map((user) => (
-            <div
+            <motion.div
+              {...hoverCardMotion}
               key={user._id}
               className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-4"
             >
@@ -33,7 +35,7 @@ export default function Leaderboard() {
               <p className="text-sm text-[#888] mt-2">
                 Level {user.level} • 🔥 {user.streak} day streak
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

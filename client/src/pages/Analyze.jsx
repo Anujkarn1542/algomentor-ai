@@ -2,6 +2,8 @@ import { useState } from "react";
 import Layout from "../components/Layout";
 import Editor from "@monaco-editor/react";
 import api from "../api/axios";
+import { motion } from "framer-motion";
+import { hoverCardMotion } from "../utils/motion";
 
 const TOPICS = [
   "Arrays",
@@ -167,7 +169,10 @@ export default function Analyze() {
           {result && (
             <div className="p-4 flex flex-col gap-4">
               {/* Score */}
-              <div className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-4 text-center">
+              <motion.div
+                {...hoverCardMotion}
+                className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-4 text-center"
+              >
                 <p className="text-xs text-[#555] uppercase tracking-widest mb-2 font-semibold">
                   Code Score
                 </p>
@@ -183,10 +188,13 @@ export default function Analyze() {
                     Already optimal ✓
                   </span>
                 )}
-              </div>
+              </motion.div>
 
               {/* Complexity */}
-              <div className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-4">
+              <motion.div
+                {...hoverCardMotion}
+                className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-4"
+              >
                 <p className="text-xs text-[#444] uppercase tracking-widest font-semibold mb-3">
                   Complexity
                 </p>
@@ -207,10 +215,13 @@ export default function Analyze() {
                 <p className="text-xs text-[#555] leading-relaxed">
                   {result.complexityExplanation}
                 </p>
-              </div>
+              </motion.div>
 
               {/* Patterns */}
-              <div className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-4">
+              <motion.div
+                {...hoverCardMotion}
+                className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-4"
+              >
                 <p className="text-xs text-[#444] uppercase tracking-widest font-semibold mb-3">
                   Pattern detected
                 </p>
@@ -224,10 +235,13 @@ export default function Analyze() {
                     </span>
                   ))}
                 </div>
-              </div>
+              </motion.div>
 
               {/* Hints */}
-              <div className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-4">
+              <motion.div
+                {...hoverCardMotion}
+                className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-4"
+              >
                 <div className="flex items-center justify-between mb-3">
                   <p className="text-xs text-[#444] uppercase tracking-widest font-semibold">
                     Hint {hintIndex + 1} of {result.hints?.length}
@@ -244,11 +258,11 @@ export default function Analyze() {
                 <p className="text-sm text-[#888] leading-relaxed">
                   {result.hints?.[hintIndex]}
                 </p>
-              </div>
+              </motion.div>
 
               {/* Improvements */}
               {result.improvements?.length > 0 && (
-                <div className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-4">
+                <motion.div {...hoverCardMotion} className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-4">
                   <p className="text-xs text-[#444] uppercase tracking-widest font-semibold mb-3">
                     Improvements
                   </p>
@@ -265,12 +279,12 @@ export default function Analyze() {
                       </li>
                     ))}
                   </ul>
-                </div>
+                </motion.div>
               )}
 
               {/* Optimized code */}
               {!result.isOptimal && (
-                <div className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-4">
+                <motion.div {...hoverCardMotion} className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-4">
                   <div className="flex items-center justify-between mb-3">
                     <p className="text-xs text-[#444] uppercase tracking-widest font-semibold">
                       Optimized version
@@ -303,7 +317,7 @@ export default function Analyze() {
                       </pre>
                     </>
                   )}
-                </div>
+                </motion.div>
               )}
             </div>
           )}

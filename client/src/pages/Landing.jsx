@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { hoverCardMotion } from "../utils/motion";
 
 export default function Landing() {
   const features = [
@@ -119,7 +121,7 @@ export default function Landing() {
         </div>
 
         {/* Hero card preview */}
-        <div className="mt-16 w-full max-w-3xl bg-[#0f0f20] border border-[#1e1e35] rounded-2xl overflow-hidden">
+        <motion.div {...hoverCardMotion} className="mt-16 w-full max-w-3xl bg-[#0f0f20] border border-[#1e1e35] rounded-2xl overflow-hidden">
           <div className="flex items-center gap-2 px-5 py-3.5 border-b border-[#1e1e35] bg-[#0a0a18]">
             <div className="w-3 h-3 rounded-full bg-[#f87171]" />
             <div className="w-3 h-3 rounded-full bg-[#fb923c]" />
@@ -217,7 +219,7 @@ export default function Landing() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ── Stats ── */}
@@ -246,7 +248,7 @@ export default function Landing() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {features.map(({ icon, title, desc }, i) => (
-              <div
+              <motion.div {...hoverCardMotion}
                 key={i}
                 className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-6 hover:border-[#2a2a45] transition-colors"
               >
@@ -257,7 +259,7 @@ export default function Landing() {
                   {title}
                 </h3>
                 <p className="text-sm text-[#555] leading-relaxed">{desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -274,7 +276,7 @@ export default function Landing() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {steps.map(({ num, title, desc }, i) => (
-              <div key={i} className="flex flex-col items-center text-center">
+              <motion.div {...hoverCardMotion} key={i} className="flex flex-col items-center text-center">
                 <div
                   className="w-12 h-12 rounded-2xl flex items-center justify-center text-sm font-bold text-white mb-4"
                   style={{
@@ -290,7 +292,7 @@ export default function Landing() {
                   {title}
                 </h3>
                 <p className="text-xs text-[#555] leading-relaxed">{desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -299,7 +301,7 @@ export default function Landing() {
       {/* ── CTA ── */}
       <section className="px-6 md:px-16 py-20 border-t border-[#1e1e35]">
         <div className="max-w-2xl mx-auto text-center">
-          <div className="bg-[#0f0f20] border border-[#1e1e35] rounded-3xl p-10 md:p-14">
+          <motion.div {...hoverCardMotion} className="bg-[#0f0f20] border border-[#1e1e35] rounded-3xl p-10 md:p-14">
             <h2 className="text-3xl font-bold text-white mb-4">
               Ready to level up your DSA?
             </h2>
@@ -313,7 +315,7 @@ export default function Landing() {
             >
               Get started for free →
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
 

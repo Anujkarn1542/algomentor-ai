@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
+import { pageMotion, cardMotion, hoverCardMotion } from "../utils/motion";
 import Layout from "../components/Layout";
 import api from "../api/axios";
 import {
@@ -58,7 +60,7 @@ export default function Dashboard() {
 
   return (
     <Layout>
-      <div className="p-8 min-h-screen bg-[#080812]">
+      <motion.div {...pageMotion} className="p-8 min-h-screen bg-[#080812]">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-white mb-1">
@@ -77,7 +79,11 @@ export default function Dashboard() {
           <>
             {/* Stat cards */}
             <div className="grid grid-cols-3 gap-4 mb-8">
-              <div className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-5">
+              <motion.div
+                {...hoverCardMotion}
+                variants={cardMotion}
+                className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-5"
+              >
                 <p className="text-xs text-[#555] font-semibold uppercase tracking-widest mb-3">
                   Problems Analyzed
                 </p>
@@ -87,9 +93,13 @@ export default function Dashboard() {
                 <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[#0d2d1a] text-[#4ade80]">
                   All time
                 </span>
-              </div>
+              </motion.div>
 
-              <div className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-5">
+              <motion.div
+                {...hoverCardMotion}
+                variants={cardMotion}
+                className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-5"
+              >
                 <p className="text-xs text-[#555] font-semibold uppercase tracking-widest mb-3">
                   Avg Score
                 </p>
@@ -99,9 +109,13 @@ export default function Dashboard() {
                 <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[#1e1040] text-[#a78bfa]">
                   Across all topics
                 </span>
-              </div>
+              </motion.div>
 
-              <div className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-5">
+              <motion.div
+                {...hoverCardMotion}
+                variants={cardMotion}
+                className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-5"
+              >
                 <p className="text-xs text-[#555] font-semibold uppercase tracking-widest mb-3">
                   Weak Topic
                 </p>
@@ -111,11 +125,14 @@ export default function Dashboard() {
                 <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[#2d1f0a] text-[#fb923c]">
                   Focus area
                 </span>
-              </div>
+              </motion.div>
             </div>
 
             {/* Progress heatmap */}
-            <div className="mb-8 bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-6">
+            <motion.div
+              {...hoverCardMotion}
+              className="mb-8 bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-6"
+            >
               <div className="flex items-center justify-between mb-5">
                 <div>
                   <p className="text-sm font-semibold text-white">
@@ -167,12 +184,15 @@ export default function Dashboard() {
                   </div>
                 </>
               )}
-            </div>
+            </motion.div>
 
             {/* Chart + Recent */}
             <div className="grid grid-cols-5 gap-6">
               {/* Bar chart */}
-              <div className="col-span-3 bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-6">
+              <motion.div
+                {...hoverCardMotion}
+                className="col-span-3 bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-6"
+              >
                 <p className="text-sm font-semibold text-white mb-1">
                   Problems by topic
                 </p>
@@ -224,10 +244,10 @@ export default function Dashboard() {
                     </BarChart>
                   </ResponsiveContainer>
                 )}
-              </div>
+              </motion.div>
 
               {/* Recent analyses */}
-              <div className="col-span-2 bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-6">
+              <motion.div {...hoverCardMotion} className="col-span-2 bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-6">
                 <p className="text-sm font-semibold text-white mb-1">
                   Recent analyses
                 </p>
@@ -273,7 +293,7 @@ export default function Dashboard() {
                     ))}
                   </div>
                 )}
-              </div>
+              </motion.div>
             </div>
 
             {/* Quick actions */}
@@ -298,7 +318,7 @@ export default function Dashboard() {
                   color: "#854F0B",
                 },
               ].map(({ label, desc, href, color }) => (
-                <a
+                <motion.a {...hoverCardMotion}
                   key={href}
                   href={href}
                   className="bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-5 no-underline hover:border-[#2a2a45] transition-colors group block"
@@ -316,12 +336,12 @@ export default function Dashboard() {
                     {label}
                   </p>
                   <p className="text-xs text-[#555]">{desc}</p>
-                </a>
+                </motion.a>
               ))}
             </div>
           </>
         )}
-      </div>
+      </motion.div>
     </Layout>
   );
 }
