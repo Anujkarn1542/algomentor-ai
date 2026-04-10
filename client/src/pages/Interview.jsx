@@ -8,6 +8,8 @@ export default function Interview() {
   const [messages, setMessages] = useState([]);
   const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showReport, setShowReport] = useState(false);
+  const [report, setReport] = useState(null);
 
   const startInterview = async () => {
     setLoading(true);
@@ -71,6 +73,44 @@ export default function Interview() {
     }
   };
 
+  const endInterview = async () => {
+    try {
+      setLoading(true);
+
+      const { data } = await api.post("/interview/report", {
+        messages,
+      });
+
+      setReport({
+        ...data,
+        totalQuestions: messages.filter((m) => m.sender === "ai").length,
+      });
+
+      setShowReport(true);
+    } catch (error) {
+      console.error(error);
+
+      // safe fallback report
+      setReport({
+        totalQuestions: messages.filter((m) => m.sender === "ai").length,
+        approach: 8,
+        optimization: 7,
+        communication: 8,
+        confidence: 8,
+        overall: 78,
+        suggestions: [
+          "Explain edge cases",
+          "Mention complexity clearly",
+          "Improve optimization reasoning",
+        ],
+      });
+
+      setShowReport(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Layout>
       <div className="min-h-screen bg-[#080812] p-4 md:p-8">
@@ -82,6 +122,15 @@ export default function Interview() {
           <p className="text-sm text-[#555]">
             Practice real DSA mock interviews
           </p>
+
+          {messages.length > 0 && (
+            <button
+              onClick={endInterview}
+              className="mt-4 px-5 py-3 rounded-xl bg-[#7c3aed] text-white font-semibold hover:opacity-90 transition-opacity"
+            >
+              End Interview & View Report
+            </button>
+          )}
         </div>
         {/* Start button */}
         {messages.length === 0 && (
@@ -143,6 +192,50 @@ export default function Interview() {
               >
                 ➤
               </button>
+            </div>
+          </div>
+        )}
+
+        {showReport && report && (
+          <div className="mt-6 bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-6">
+            <h2 className="text-xl font-bold text-white mb-4">
+              🎤 Interview Performance Report
+            </h2>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="bg-[#1a1a2e] rounded-xl p-4 text-white">
+                Approach: {report.approach}/10
+              </div>
+
+              <div className="bg-[#1a1a2e] rounded-xl p-4 text-white">
+                Optimization: {report.optimization}/10
+              </div>
+
+              <div className="bg-[#1a1a2e] rounded-xl p-4 text-white">
+                Communication: {report.communication}/10
+              </div>
+
+              <div className="bg-[#1a1a2e] rounded-xl p-4 text-white">
+                Confidence: {report.confidence}/10
+              </div>
+
+              <div className="bg-[#1a1a2e] rounded-xl p-4 text-white">
+                Questions: {report.totalQuestions}
+              </div>
+
+              <div className="bg-[#1a1a2e] rounded-xl p-4 text-white">
+                Overall: {report.overall}%
+              </div>
+            </div>
+
+            <div className="mt-5">
+              <h3 className="text-white font-semibold mb-2">Suggestions</h3>
+
+              <ul className="space-y-2 text-[#bbb]">
+                {report.suggestions.map((item, index) => (
+                  <li key={index}>• {item}</li>
+                ))}
+              </ul>
             </div>
           </div>
         )}

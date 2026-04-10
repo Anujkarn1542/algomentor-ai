@@ -114,6 +114,61 @@ export default function Dashboard() {
               </div>
             </div>
 
+            {/* Progress heatmap */}
+            <div className="mb-8 bg-[#0f0f20] border border-[#1e1e35] rounded-2xl p-6">
+              <div className="flex items-center justify-between mb-5">
+                <div>
+                  <p className="text-sm font-semibold text-white">
+                    Consistency Heatmap
+                  </p>
+                  <p className="text-xs text-[#555] mt-1">
+                    Your learning activity over time
+                  </p>
+                </div>
+
+                <p className="text-xs text-[#a78bfa]">🔥 Stay consistent</p>
+              </div>
+
+              {stats?.heatmap?.length === 0 ? (
+                <p className="text-[#555] text-sm text-center py-6">
+                  No activity yet — start analyzing problems 🚀
+                </p>
+              ) : (
+                <>
+                  <div className="grid grid-cols-15 gap-1.5">
+                    {stats?.heatmap?.map((day, index) => {
+                      let bg = "#1a1a2e";
+
+                      if (day.count >= 4) bg = "#4ade80";
+                      else if (day.count === 3) bg = "#34d399";
+                      else if (day.count === 2) bg = "#a78bfa";
+                      else if (day.count === 1) bg = "#7c3aed";
+
+                      return (
+                        <div
+                          key={index}
+                          className="w-5 h-5 rounded-sm transition-transform hover:scale-110"
+                          style={{ background: bg }}
+                          title={`${day._id} • ${day.count} solved`}
+                        />
+                      );
+                    })}
+                  </div>
+
+                  {/* Legend */}
+                  <div className="flex items-center gap-2 mt-5 text-[10px] text-[#555]">
+                    <span>Less</span>
+                    <div className="w-3 h-3 rounded-sm bg-[#1a1a2e]" />
+                    <div className="w-3 h-3 rounded-sm bg-[#7c3aed]" />
+                    <div className="w-3 h-3 rounded-sm bg-[#a78bfa]" />
+                    <div className="w-3 h-3 rounded-sm bg-[#34d399]" />
+                    <div className="w-3 h-3 rounded-sm bg-[#4ade80]" />
+                    <span>More</span>
+                  </div>
+                </>
+              )}
+            </div>
+
             {/* Chart + Recent */}
             <div className="grid grid-cols-5 gap-6">
               {/* Bar chart */}

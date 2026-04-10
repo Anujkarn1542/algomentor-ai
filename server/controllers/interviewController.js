@@ -70,3 +70,68 @@ Keep response interview style.
     });
   }
 };
+
+exports.generateInterviewReport = async (req, res) => {
+  try {
+    const { messages } = req.body;
+
+    if (!messages || !Array.isArray(messages)) {
+      return res.status(400).json({
+        message: "Interview messages are required",
+      });
+    }
+
+    const model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+    });
+
+    const conversation = messages
+      .map((msg) => `${msg.sender}: ${msg.text}`)
+      .join("\n\n");
+
+    const prompt = `
+You are an expert DSA interview evaluator.
+
+Analyze this full mock interview conversation.
+
+Return ONLY valid JSON in this exact format:
+
+{
+  "approach": 8,
+  "optimization": 7,
+  "communication": 8,
+  "confidence": 8,
+  "overall": 78,
+  "suggestions": [
+    "point 1",
+    "point 2",
+    "point 3"
+  ]
+}
+
+Conversation:
+${conversation}
+`;
+
+    const result = await model.generateContent(prompt);
+    const text = result.response.text();
+
+    const clean = text.replace(/```json|```/g, "").trim();
+
+    const report = JSON.parse(clean);
+
+    res.json(report);
+  } catch (error) {
+    console.error("INTERVIEW REPORT ERROR:", error);
+
+    if (error.status === 429) {
+      return res.status(429).json({
+        message: "AI quota reached. Please try later.",
+      });
+    }
+
+    res.status(500).json({
+      message: "Failed to generate report",
+    });
+  }
+};

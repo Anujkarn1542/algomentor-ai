@@ -22,6 +22,23 @@ exports.getStats = async (req, res) => {
     .limit(5)
     .select("problemTitle topic difficulty timeComplexity createdAt");
 
+  // 🟩 Heatmap data (last 30 active days)
+  const heatmap = await Analysis.aggregate([
+    { $match: { user: userId } },
+    {
+      $group: {
+        _id: {
+          $dateToString: {
+            format: "%Y-%m-%d",
+            date: "$createdAt",
+          },
+        },
+        count: { $sum: 1 },
+      },
+    },
+    { $sort: { _id: 1 } },
+  ]);
+
   const weakTopic = topicStats.reduce(
     (prev, curr) =>
       curr.avgScore < (prev?.avgScore ?? Infinity) ? curr : prev,
@@ -38,7 +55,8 @@ exports.getStats = async (req, res) => {
     total,
     topicStats,
     recent,
+    heatmap,
     weakTopic: weakTopic?._id || "N/A",
     avgScore,
   });
-};
+};;
